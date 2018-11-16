@@ -38,6 +38,8 @@ import java.io.IOException;
 public class LogInActivity extends Activity {
 
     EditText editTextBalanceID;
+    String errorMessage;
+    Account account = new Account();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +68,9 @@ public class LogInActivity extends Activity {
                     int statusCode = response.getStatusLine().getStatusCode();
                     String json = null;
                     if(statusCode == HttpStatus.SC_OK){
-                        json = EntityUtils.toString(response.getEntity());
+                        json = EntityUtils.toString(response.getEntity(),"UTF-8");
+                    } else {
+                        errorMessage = EntityUtils.toString(response.getEntity());
                     }
                     return Pair.create(json, statusCode);
                 } catch (IOException e) {
@@ -80,17 +84,17 @@ public class LogInActivity extends Activity {
                 if(stringIntegerPair != null && stringIntegerPair.first != null){
                     String json = stringIntegerPair.first;
                     Gson gson = new GsonBuilder().create();
-                    Account account = gson.fromJson(json, Account.class);
+                    account = gson.fromJson(json, Account.class);
                     textViewIP.setText(account.getOwner());
                     System.out.println(account.getOwner());
                 }
                 else{
-                    String msg = "Response: " + (stringIntegerPair != null ?
-                            stringIntegerPair.second : "null");
-                    Toast.makeText(LogInActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    String msg = " (Fehler " + (stringIntegerPair != null ?
+                            stringIntegerPair.second : "null") + ")";
+                    Toast.makeText(LogInActivity.this, errorMessage + msg, Toast.LENGTH_SHORT).show();
                 }
             }
-        }.execute("http://192.168.0.144:9998/rest/account/" + editTextBalanceID.getText()); // In Konstante speichern
+        }.execute("http://10.0.2.2:9998/rest/account/" + editTextBalanceID.getText()); // In Konstante speichern
     }
 
     ImageButton buttonSettings;
@@ -124,8 +128,10 @@ public class LogInActivity extends Activity {
             public void onClick(View v) {
                 //Intent switchIntent = new Intent(LogInActivity.this, MainActivity.class);
                 //LogInActivity.this.startActivity(switchIntent);
-
-                get(v);
+                //get(v);
+                Intent intent = new Intent(LogInActivity.this, TransactionActivity.class);
+                //intent.putExtra(); hier sollten Objekte von Account übergeben werden
+                startActivity(intent);
             }
         });
     }
