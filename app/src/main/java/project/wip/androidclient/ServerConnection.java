@@ -1,17 +1,20 @@
-package project.wip.androidclient;
+/*package project.wip.androidclient;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.os.AsyncTask;
-import android.os.Bundle;
+import android.util.Pair;
 import android.view.View;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
@@ -21,15 +24,58 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TransactionActivity extends Activity {
+public class ServerConnection {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_transaction);
+    private String errorMessage;
+    public Account account = new Account();
 
-        post(findViewById(android.R.id.content));
+    @SuppressLint("StaticFieldLeak")
+    public void get(View view){
+
+        new AsyncTask<String, Void, Pair<String, Integer>>() {
+
+            @Override
+            protected Pair<String, Integer> doInBackground(String... strings) {
+                HttpClient client = new DefaultHttpClient();
+                HttpGet get = new HttpGet(strings[0]);
+
+                try {
+                    HttpResponse response = client.execute(get);
+                    if(response == null) return null;
+                    int statusCode = response.getStatusLine().getStatusCode();
+                    String json = null;
+
+                    if(statusCode == HttpStatus.SC_OK){
+                        json = EntityUtils.toString(response.getEntity(),"UTF-8");
+                    } else {
+                        errorMessage = EntityUtils.toString(response.getEntity());
+                    }
+
+                    return Pair.create(json, statusCode);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Pair<String, Integer> stringIntegerPair) {
+                if(stringIntegerPair != null && stringIntegerPair.first != null){
+                    String json = stringIntegerPair.first;
+                    Gson gson = new GsonBuilder().create();
+                    account = gson.fromJson(json, Account.class);
+                    textViewIP.setText(account.getOwner());
+                    System.out.println(account.getOwner());
+                }
+                else{
+                    String msg = " (Fehler " + (stringIntegerPair != null ?
+                            stringIntegerPair.second : "null") + ")";
+                    Toast.makeText(LogInActivity.this, errorMessage + msg, Toast.LENGTH_SHORT).show();
+                }
+            }
+        }.execute("http://10.0.2.2:9998/rest/account/" + editTextBalanceID.getText()); // In Konstante speichern
     }
+
     @SuppressLint("StaticFieldLeak")
     public void post(View view){
         final String value; // = editInput.getText().toString();
@@ -42,7 +88,7 @@ public class TransactionActivity extends Activity {
                 List<NameValuePair> parameterList = new ArrayList<>();
                 parameterList.add(new BasicNameValuePair("senderNumber", "1000"));
                 parameterList.add(new BasicNameValuePair("receiverNumber", "1001"));
-                parameterList.add(new BasicNameValuePair("amount", "1.00"));
+                parameterList.add(new BasicNameValuePair("amount", "1,00"));
                 parameterList.add(new BasicNameValuePair("reference", "Bitteschön!"));
                 try {
 
@@ -74,8 +120,8 @@ public class TransactionActivity extends Activity {
 
                 /*String msg = " (Fehler " + (stringIntegerPair != null ?
                         stringIntegerPair.second : "null") + ")";
-                Toast.makeText(LogInActivity.this, errorMessage + msg, Toast.LENGTH_SHORT).show();*/
+                Toast.makeText(LogInActivity.this, errorMessage + msg, Toast.LENGTH_SHORT).show();
             }
         }.execute("http://10.0.2.2:9998/rest/transaction");// In Konstante speichern
     }
-}
+}*/

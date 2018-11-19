@@ -3,36 +3,27 @@ package project.wip.androidclient;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Pair;
-import android.view.inputmethod.InputMethodManager;
-import android.app.Activity;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
-import android.widget.Button;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
 import java.io.IOException;
 
 public class LogInActivity extends Activity {
@@ -50,7 +41,6 @@ public class LogInActivity extends Activity {
         setContentView(R.layout.activity_log_in);
 
         editTextBalanceID = findViewById(R.id.editTextBalanceID);
-
 
         addListenerOnButton();
     }
@@ -129,7 +119,7 @@ public class LogInActivity extends Activity {
                 //Intent switchIntent = new Intent(LogInActivity.this, MainActivity.class);
                 //LogInActivity.this.startActivity(switchIntent);
                 //get(v);
-                Intent intent = new Intent(LogInActivity.this, TransactionActivity.class);
+                Intent intent = new Intent(LogInActivity.this, MainActivity.class);
                 //intent.putExtra(); hier sollten Objekte von Account übergeben werden
                 startActivity(intent);
             }

@@ -1,16 +1,50 @@
 package project.wip.androidclient;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
 
-public class Transaction {
+public class Transaction //implements Parcelable
+         {
 	private int id;
 	private Account sender;
 	private Account receiver;
 	private BigDecimal amount;
 	private String reference;
 	private Date transactionDate;
+
+	/*@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel out, int flags) {
+		out.writeInt(id);
+		out.writeString(amount.toString());
+		out.writeString(reference);
+		out.writeString(transactionDate.toString());
+	}
+
+	public static final Parcelable.Creator<Transaction> CREATOR = new Parcelable.Creator<Transaction>() {
+		public Transaction createFromParcel(Parcel in) {
+			return new Transaction(in);
+		}
+
+		public Transaction[] newArray(int size) {
+			return new Transaction[size];
+		}
+	};
+
+	private Transaction(Parcel in) {
+		id = in.readInt();
+		amount = in.readString();
+		reference = in.readString();
+		transactionDate = (Date) in.readString();
+	}*/
 
 	public int getId() {
 		return id;
