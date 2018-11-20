@@ -11,22 +11,46 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="0dp"
         android:layout_marginTop="8dp"
         android:fontFamily="sans-serif"
         android:text="Guten Tag, Jotham Weber!"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
         android:textSize="24sp"
-        android:textStyle="italic"
-        android:textColor="@android:color/black"/>
+        android:textStyle="italic" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="411dp"
         android:layout_below="@+id/textView"
         android:layout_alignParentStart="true"
         android:layout_marginStart="0dp"
-        android:layout_marginTop="47dp"
-        android:background="@android:color/darker_gray"
+        android:layout_marginTop="60dp"
         android:padding="4dp"
         android:scrollbars="vertical" />
+
+    <TextView
+        android:id="@+id/textViewBalanceDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="74dp"
+        android:layout_marginTop="16dp"
+        android:text="850,14 €"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/buttonTransaction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="76dp"
+        android:text="überweisen" />
 </RelativeLayout>
