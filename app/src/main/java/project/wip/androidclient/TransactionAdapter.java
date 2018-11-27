@@ -11,21 +11,27 @@ import java.util.ArrayList;
 
 public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.TransactionViewHolder> {
 
-    private ArrayList<TransactionItem> mTransactionItems;
+    private ArrayList<TransactionItem> transactionItems;
 
     public static class TransactionViewHolder extends RecyclerView.ViewHolder{
-        public TextView textView1;
-        public TextView textView2;
+        public TextView textViewDay;
+        public TextView textViewMonth;
+        public TextView textViewName;
+        public TextView textViewReference;
+        public TextView textViewAmount;
 
         public TransactionViewHolder(@NonNull View itemView) {
             super(itemView);
-            textView1 = itemView.findViewById(R.id.textView1);
-            textView2 = itemView.findViewById(R.id.textView2);
+            textViewDay = itemView.findViewById(R.id.textViewDay);
+            textViewMonth = itemView.findViewById(R.id.textViewMonth);
+            textViewName = itemView.findViewById(R.id.textViewName);
+            textViewReference = itemView.findViewById(R.id.textViewReference);
+            textViewAmount = itemView.findViewById(R.id.textViewAmount);
         }
     }
 
     public TransactionAdapter(ArrayList<TransactionItem> transactionItems){
-        this.mTransactionItems = transactionItems;
+        this.transactionItems = transactionItems;
     }
 
     @NonNull
@@ -38,13 +44,16 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull TransactionViewHolder transactionViewHolder, int i) {
-        TransactionItem currentItem = mTransactionItems.get(i);
-        transactionViewHolder.textView1.setText(currentItem.getmText1());
-        transactionViewHolder.textView2.setText(currentItem.getmText2());
+        TransactionItem currentItem = transactionItems.get(i);
+        transactionViewHolder.textViewDay.setText(currentItem.getDay());
+        transactionViewHolder.textViewMonth.setText(currentItem.getMonth());
+        transactionViewHolder.textViewName.setText(currentItem.getName());
+        transactionViewHolder.textViewReference.setText(currentItem.getReference());
+        transactionViewHolder.textViewAmount.setText(currentItem.getAmount());
     }
 
     @Override
     public int getItemCount() {
-        return mTransactionItems.size();
+        return transactionItems.size();
     }
 }

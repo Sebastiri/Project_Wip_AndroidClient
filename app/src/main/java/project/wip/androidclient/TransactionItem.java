@@ -1,27 +1,37 @@
 package project.wip.androidclient;
 
 public class TransactionItem {
-    private String mText1;
-    private String mText2;
+    private String day;
+    private  String month;
+    private String name;
+    private String reference;
+    private String amount;
 
-    public String getmText1() {
-        return mText1;
+    public TransactionItem(String day, String month, String name, String reference, String amount){
+        this.day = day;
+        this.month = month;
+        this.name = name;
+        this.reference = reference;
+        this.amount = amount;
     }
 
-    public void setmText1(String mText1) {
-        this.mText1 = mText1;
+    public String getDay() {
+        return day;
     }
 
-    public String getmText2() {
-        return mText2;
+    public String getMonth() {
+        return month;
     }
 
-    public void setmText2(String mText2) {
-        this.mText2 = mText2;
+    public String getName() {
+        return name;
     }
 
-    public TransactionItem(String text1, String text2){
-        mText1 = text1;
-        mText2 = text2;
+    public String getReference() {
+        return reference;
+    }
+
+    public String getAmount() {
+        return amount;
     }
 }

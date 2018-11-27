@@ -2,9 +2,11 @@ package project.wip.androidclient;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import org.apache.http.HttpResponse;
@@ -23,13 +25,35 @@ import java.util.List;
 
 public class TransactionActivity extends Activity {
 
+    //Intent intentActivityBack = new Intent(TransactionActivity.this, MainActivity.class);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transaction);
 
         post(findViewById(android.R.id.content));
+
+        addListenerOnButton();
     }
+
+    public void addListenerOnButton(){
+
+        Button buttonTransact = findViewById(R.id.buttonTransaction);
+
+        buttonTransact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentActivityBack = new Intent(TransactionActivity.this, MainActivity.class);
+                //Intent switchIntent = new Intent(LogInActivity.this, MainActivity.class);
+                //LogInActivity.this.startActivity(switchIntent);
+                //get(v);
+                //intent.putExtra(); hier sollten Objekte von Account übergeben werden
+                startActivity(intentActivityBack);
+            }
+        });
+    }
+
     @SuppressLint("StaticFieldLeak")
     public void post(View view){
         final String value; // = editInput.getText().toString();

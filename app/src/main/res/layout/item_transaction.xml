@@ -11,48 +11,58 @@
         android:layout_margin="8dp">
 
         <TextView
-            android:id="@+id/textView1"
-            android:layout_width="76dp"
-            android:layout_height="61dp"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="-80dp"
-            android:layout_toStartOf="@+id/textView3"
-            android:text="Line 1"
+            android:id="@+id/textViewDay"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="12dp"
+            android:text="31"
             android:textAlignment="center"
             android:textColor="@android:color/black"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/textViewMonth"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewDay"
+            android:text="Dez"
+            android:textAlignment="center"
+            android:textColor="@android:color/black"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/textViewName"
             android:layout_width="166dp"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginStart="100dp"
             android:layout_marginTop="13dp"
-            android:text="Line 2"
+            android:text="Max Mustermann"
             android:textColor="@android:color/black"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/textViewReference"
             android:layout_width="167dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textView2"
+            android:layout_below="@+id/textViewName"
             android:layout_alignParentStart="true"
             android:layout_marginStart="101dp"
             android:layout_marginTop="2dp"
-            android:text="TextView" />
+            android:text="Musterzweck" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/textViewAmount"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="29dp"
             android:layout_marginEnd="10dp"
-            android:text="TextView"
+            android:text="12,34 €"
+            android:textSize="18sp"
             android:textAlignment="textEnd" />
 
     </RelativeLayout>
