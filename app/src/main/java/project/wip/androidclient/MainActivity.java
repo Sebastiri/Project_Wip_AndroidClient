@@ -18,17 +18,17 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         ArrayList<TransactionItem> transactionItems = new ArrayList<>();
-        transactionItems.add(new TransactionItem("10","Nov","Alina Liedtke","Zum Geburtstag <3","300,00"));
-        transactionItems.add(new TransactionItem("07","Okt","Bertelsmann","Gehalt","7000,00"));
-        transactionItems.add(new TransactionItem("06","Okt","Nadin Janßen","Für die Schuhe","-35,99"));
-        transactionItems.add(new TransactionItem("22","Aug","Sebastian Rieck","einfach so","1003,99"));
-        transactionItems.add(new TransactionItem("20","Aug","Hubertus Heil","Für die gute Lobbyarbeit","1,00"));
-        transactionItems.add(new TransactionItem("20","Aug","Bank","Finanzierungskredit","10000,00"));
-        transactionItems.add(new TransactionItem("19","Aug","Mama Weber","Frohe Weihnacht","20,57"));
-        transactionItems.add(new TransactionItem("01","Aug","Oma Weber","Zum essen","309,48"));
-        transactionItems.add(new TransactionItem("01","Aug","Sebastian Scholz","Kauf eures Banking-Systems","500,00"));
-        transactionItems.add(new TransactionItem("30","Jul","Alina Liedtke","Zum Geburtstag <3","300,01"));
-        transactionItems.add(new TransactionItem("28","Jul","Bank","STARTGUTHABEN","10000,00"));
+        transactionItems.add(new TransactionItem("10","Nov","Alina Liedtke","Zum Geburtstag <3","300,00 €"));
+        transactionItems.add(new TransactionItem("07","Okt","Bertelsmann","Gehalt","7000,00 €"));
+        transactionItems.add(new TransactionItem("06","Okt","Nadin Janßen","Für die Schuhe","-35,99 €"));
+        transactionItems.add(new TransactionItem("22","Aug","Sebastian Rieck","einfach so","1003,99 €"));
+        transactionItems.add(new TransactionItem("20","Aug","Hubertus Heil","Für die gute Lobbyarbeit","179823429,00 €"));
+        transactionItems.add(new TransactionItem("20","Aug","Bank","Finanzierungskredit","10000,00 €"));
+        transactionItems.add(new TransactionItem("19","Aug","Mama Weber","Frohe Weihnacht","20,57 €"));
+        transactionItems.add(new TransactionItem("01","Aug","Oma Weber","Zum essen","309,48 €"));
+        transactionItems.add(new TransactionItem("01","Aug","Sebastian Scholz","Kauf eures Banking-Systems und noch viel mehr und so tralalala","500,00 €"));
+        transactionItems.add(new TransactionItem("30","Jul","Alina Liedtke","Zum Geburtstag <3","300,01 €"));
+        transactionItems.add(new TransactionItem("28","Jul","Bank","STARTGUTHABEN","10000,00 €"));
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
@@ -37,6 +37,8 @@ public class MainActivity extends Activity {
 
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
+
+        // Set focus to the textview
 
         addListenerOnButton();
     }

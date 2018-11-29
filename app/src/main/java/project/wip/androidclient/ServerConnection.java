@@ -1,6 +1,7 @@
-/*package project.wip.androidclient;
+package project.wip.androidclient;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Pair;
 import android.view.View;
@@ -30,7 +31,7 @@ public class ServerConnection {
     public Account account = new Account();
 
     @SuppressLint("StaticFieldLeak")
-    public void get(View view){
+    public void getAccount(View view, String accountNumber, final Context context){
 
         new AsyncTask<String, Void, Pair<String, Integer>>() {
 
@@ -64,20 +65,18 @@ public class ServerConnection {
                     String json = stringIntegerPair.first;
                     Gson gson = new GsonBuilder().create();
                     account = gson.fromJson(json, Account.class);
-                    textViewIP.setText(account.getOwner());
-                    System.out.println(account.getOwner());
                 }
                 else{
                     String msg = " (Fehler " + (stringIntegerPair != null ?
                             stringIntegerPair.second : "null") + ")";
-                    Toast.makeText(LogInActivity.this, errorMessage + msg, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, errorMessage + msg, Toast.LENGTH_SHORT).show();
                 }
             }
-        }.execute("http://10.0.2.2:9998/rest/account/" + editTextBalanceID.getText()); // In Konstante speichern
+        }.execute("http://10.0.2.2:9998/rest/account/" + accountNumber); // In Konstante speichern
     }
 
     @SuppressLint("StaticFieldLeak")
-    public void post(View view){
+    public void postTransaction(View view, final Context context){
         final String value; // = editInput.getText().toString();
 
         AsyncTask<String, Void, HttpResponse> info = new AsyncTask<String, Void, HttpResponse>() {
@@ -105,7 +104,7 @@ public class ServerConnection {
             @Override
             protected void onPostExecute(HttpResponse httpResponse) {
                 int statusCode = httpResponse.getStatusLine().getStatusCode();
-                String entityMsg = null;
+                String entityMsg = "";
                 if(statusCode != HttpStatus.SC_NO_CONTENT){
                     try {
                         entityMsg = EntityUtils.toString(httpResponse.getEntity(),"UTF-8");
@@ -114,14 +113,14 @@ public class ServerConnection {
                     }
                     // Bedingung ? true : false
                     String errorMsg = " (Fehler " + httpResponse.getStatusLine().getStatusCode() + ")";
-                    Toast.makeText(TransactionActivity.this, entityMsg + errorMsg, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, entityMsg + errorMsg, Toast.LENGTH_SHORT).show();
                 }
 
-
+                //else hier noch rein
                 /*String msg = " (Fehler " + (stringIntegerPair != null ?
                         stringIntegerPair.second : "null") + ")";
-                Toast.makeText(LogInActivity.this, errorMessage + msg, Toast.LENGTH_SHORT).show();
+                Toast.makeText(LogInActivity.this, errorMessage + msg, Toast.LENGTH_SHORT).show();*/
             }
         }.execute("http://10.0.2.2:9998/rest/transaction");// In Konstante speichern
     }
-}*/
+}

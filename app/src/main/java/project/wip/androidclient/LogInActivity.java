@@ -31,6 +31,11 @@ public class LogInActivity extends Activity {
     EditText editTextBalanceID;
     String errorMessage;
     Account account = new Account();
+    ImageButton buttonSettings;
+    Button buttonLogIn;
+    TextView textViewIP;
+    EditText editTextIP;
+    ServerConnection serverConnection = new ServerConnection();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,11 +92,6 @@ public class LogInActivity extends Activity {
         }.execute("http://10.0.2.2:9998/rest/account/" + editTextBalanceID.getText()); // In Konstante speichern
     }
 
-    ImageButton buttonSettings;
-    Button buttonLogIn;
-    TextView textViewIP;
-    EditText editTextIP;
-
     public void addListenerOnButton(){
 
         buttonSettings = findViewById(R.id.imageButtonSettings);
@@ -116,9 +116,8 @@ public class LogInActivity extends Activity {
         buttonLogIn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent switchIntent = new Intent(LogInActivity.this, MainActivity.class);
-                //LogInActivity.this.startActivity(switchIntent);
-                //get(v);
+                //serverConnection.getAccount(v,"1000",LogInActivity.this);
+                serverConnection.postTransaction(v,LogInActivity.this);
                 Intent intent = new Intent(LogInActivity.this, MainActivity.class);
                 //intent.putExtra(); hier sollten Objekte von Account übergeben werden
                 startActivity(intent);

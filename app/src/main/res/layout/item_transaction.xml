@@ -3,11 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="4dp">
+    app:cardCornerRadius="10dp"
+    android:layout_marginBottom="4dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="60dp"
         android:layout_margin="8dp">
 
         <TextView
@@ -15,7 +16,7 @@
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="5dp"
             android:text="31"
             android:textAlignment="center"
             android:textColor="@android:color/black"
@@ -33,36 +34,41 @@
 
         <TextView
             android:id="@+id/textViewName"
-            android:layout_width="166dp"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="100dp"
-            android:layout_marginTop="13dp"
+            android:layout_marginStart="70dp"
+            android:layout_marginTop="7dp"
+            android:singleLine="true"
             android:text="Max Mustermann"
             android:textColor="@android:color/black"
             android:textSize="20sp" />
 
         <TextView
             android:id="@+id/textViewReference"
-            android:layout_width="167dp"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textViewName"
             android:layout_alignParentStart="true"
-            android:layout_marginStart="101dp"
-            android:layout_marginTop="2dp"
+            android:singleLine="true"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:layout_marginStart="70dp"
+            android:layout_marginTop="3dp"
             android:text="Musterzweck" />
 
         <TextView
             android:id="@+id/textViewAmount"
-            android:layout_width="80dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="29dp"
+            android:layout_marginTop="17dp"
             android:layout_marginEnd="10dp"
+            android:singleLine="true"
             android:text="12,34 €"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:textAlignment="textEnd" />
 
     </RelativeLayout>
