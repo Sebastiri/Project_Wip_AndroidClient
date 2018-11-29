@@ -28,7 +28,7 @@ import java.io.IOException;
 
 public class LogInActivity extends Activity {
 
-    EditText editTextBalanceID;
+    EditText editTextAccountNumber;
     String errorMessage;
     Account account = new Account();
     ImageButton buttonSettings;
@@ -45,7 +45,7 @@ public class LogInActivity extends Activity {
                         InputMethodManager.HIDE_IMPLICIT_ONLY);
         setContentView(R.layout.activity_log_in);
 
-        editTextBalanceID = findViewById(R.id.editTextBalanceID);
+        editTextAccountNumber = findViewById(R.id.editTextBalanceID);
 
         addListenerOnButton();
     }
@@ -89,7 +89,7 @@ public class LogInActivity extends Activity {
                     Toast.makeText(LogInActivity.this, errorMessage + msg, Toast.LENGTH_SHORT).show();
                 }
             }
-        }.execute("http://10.0.2.2:9998/rest/account/" + editTextBalanceID.getText()); // In Konstante speichern
+        }.execute("http://10.0.2.2:9998/rest/account/" + editTextAccountNumber.getText()); // In Konstante speichern
     }
 
     public void addListenerOnButton(){
@@ -116,10 +116,9 @@ public class LogInActivity extends Activity {
         buttonLogIn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                //serverConnection.getAccount(v,"1000",LogInActivity.this);
-                serverConnection.postTransaction(v,LogInActivity.this);
+                serverConnection.getAccount(editTextAccountNumber.getText().toString(),LogInActivity.this);
                 Intent intent = new Intent(LogInActivity.this, MainActivity.class);
-                //intent.putExtra(); hier sollten Objekte von Account übergeben werden
+                intent.putExtra("accountNumber", editTextAccountNumber.getText().toString());
                 startActivity(intent);
             }
         });

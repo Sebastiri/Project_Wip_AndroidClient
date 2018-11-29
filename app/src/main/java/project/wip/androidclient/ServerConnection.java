@@ -31,7 +31,7 @@ public class ServerConnection {
     public Account account = new Account();
 
     @SuppressLint("StaticFieldLeak")
-    public void getAccount(View view, String accountNumber, final Context context){
+    public void getAccount(String accountNumber, final Context context){
 
         new AsyncTask<String, Void, Pair<String, Integer>>() {
 
@@ -87,8 +87,8 @@ public class ServerConnection {
                 List<NameValuePair> parameterList = new ArrayList<>();
                 parameterList.add(new BasicNameValuePair("senderNumber", "1000"));
                 parameterList.add(new BasicNameValuePair("receiverNumber", "1001"));
-                parameterList.add(new BasicNameValuePair("amount", "1,00"));
-                parameterList.add(new BasicNameValuePair("reference", "Bitteschön!"));
+                parameterList.add(new BasicNameValuePair("amount", "1.00"));
+                parameterList.add(new BasicNameValuePair("reference", "Bitteschoen"));
                 try {
 
                     UrlEncodedFormEntity form = new UrlEncodedFormEntity(parameterList,"UTF-8");

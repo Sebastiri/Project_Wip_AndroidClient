@@ -7,17 +7,54 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends Activity {
+
+    ServerConnection serverConnection = new ServerConnection();
+    TextView textViewName = findViewById(R.id.textViewName);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //getExtra Algorithmus
+        String accountNumber;
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if(extras == null) {
+                accountNumber = null;
+            } else {
+                accountNumber = extras.getString("accountNumber");
+            }
+        } else {
+            accountNumber= (String) savedInstanceState.getSerializable("accountNumber");
+        }
+
+
+        serverConnection.getAccount(accountNumber,MainActivity.this);
+        textViewName.setText(String.format("Guten Tag, %s", serverConnection.account.getOwner()));
+
         ArrayList<TransactionItem> transactionItems = new ArrayList<>();
+        List<Transaction> transactions = serverConnection.account.getTransactions();
+
+        //foreach Schleife um Transaktionen in RecyclerViews hinzuzufügen
+        for (Transaction i:transactions) {
+
+            //if-Abfrage zum Unterscheiden ob User der Empfänger oder der Sender der Transaktion ist
+            if(serverConnection.account.getId() == i.getReceiver().getId()){
+                transactionItems.add(new TransactionItem(i.getDayFromDate(),i.getMonthFromDate(),i.getSender()
+                        .getOwner(),i.getReference(),i.getAmount().toString() + " €"));
+            } else {
+                transactionItems.add(new TransactionItem(i.getDayFromDate(),i.getMonthFromDate(),i.getReceiver()
+                        .getOwner(),i.getReference(),"-" + i.getAmount().toString() + " €"));
+            }
+        }
+/*
         transactionItems.add(new TransactionItem("10","Nov","Alina Liedtke","Zum Geburtstag <3","300,00 €"));
         transactionItems.add(new TransactionItem("07","Okt","Bertelsmann","Gehalt","7000,00 €"));
         transactionItems.add(new TransactionItem("06","Okt","Nadin Janßen","Für die Schuhe","-35,99 €"));
@@ -29,7 +66,7 @@ public class MainActivity extends Activity {
         transactionItems.add(new TransactionItem("01","Aug","Sebastian Scholz","Kauf eures Banking-Systems und noch viel mehr und so tralalala","500,00 €"));
         transactionItems.add(new TransactionItem("30","Jul","Alina Liedtke","Zum Geburtstag <3","300,01 €"));
         transactionItems.add(new TransactionItem("28","Jul","Bank","STARTGUTHABEN","10000,00 €"));
-
+*/
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
@@ -37,8 +74,6 @@ public class MainActivity extends Activity {
 
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
-
-        // Set focus to the textview
 
         addListenerOnButton();
     }
@@ -51,10 +86,6 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intentTransaction = new Intent(MainActivity.this, TransactionActivity.class);
-                //Intent switchIntent = new Intent(LogInActivity.this, MainActivity.class);
-                //LogInActivity.this.startActivity(switchIntent);
-                //get(v);
-                //intent.putExtra(); hier sollten Objekte von Account übergeben werden
                 startActivity(intentTransaction);
             }
         });

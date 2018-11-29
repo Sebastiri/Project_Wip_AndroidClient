@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.math.BigDecimal;
+import java.util.Calendar;
 import java.util.Date;
 
 
@@ -45,6 +46,24 @@ public class Transaction //implements Parcelable
 		reference = in.readString();
 		transactionDate = (Date) in.readString();
 	}*/
+
+	public String getDayFromDate(){
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(transactionDate);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        StringBuilder sb = new StringBuilder();
+        sb.append(day);
+        return sb.toString();
+    }
+
+    public String getMonthFromDate(){
+	    Calendar cal = Calendar.getInstance();
+	    cal.setTime(transactionDate);
+	    int month = cal.get(Calendar.MONTH);
+	    StringBuilder sb = new StringBuilder();
+	    sb.append(month);
+        return sb.toString();
+	}
 
 	public int getId() {
 		return id;
