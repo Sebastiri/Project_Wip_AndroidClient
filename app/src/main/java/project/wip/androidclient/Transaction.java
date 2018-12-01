@@ -17,52 +17,62 @@ public class Transaction //implements Parcelable
 	private String reference;
 	private Date transactionDate;
 
-	/*@Override
-	public int describeContents() {
-		return 0;
-	}
-
-	@Override
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeInt(id);
-		out.writeString(amount.toString());
-		out.writeString(reference);
-		out.writeString(transactionDate.toString());
-	}
-
-	public static final Parcelable.Creator<Transaction> CREATOR = new Parcelable.Creator<Transaction>() {
-		public Transaction createFromParcel(Parcel in) {
-			return new Transaction(in);
-		}
-
-		public Transaction[] newArray(int size) {
-			return new Transaction[size];
-		}
-	};
-
-	private Transaction(Parcel in) {
-		id = in.readInt();
-		amount = in.readString();
-		reference = in.readString();
-		transactionDate = (Date) in.readString();
-	}*/
-
 	public String getDayFromDate(){
         Calendar cal = Calendar.getInstance();
         cal.setTime(transactionDate);
         int day = cal.get(Calendar.DAY_OF_MONTH);
-        StringBuilder sb = new StringBuilder();
-        sb.append(day);
-        return sb.toString();
+        String result = String.valueOf(day);
+        if(result.length() == 1){
+            result = String.format("0%s",result);
+        }
+        return result;
     }
 
     public String getMonthFromDate(){
 	    Calendar cal = Calendar.getInstance();
 	    cal.setTime(transactionDate);
 	    int month = cal.get(Calendar.MONTH);
-	    StringBuilder sb = new StringBuilder();
-	    sb.append(month);
-        return sb.toString();
+	    String result;
+		switch(month) {
+			case 1:
+				result = "Jan";
+				break;
+			case 2:
+				result = "Feb";
+				break;
+			case 3:
+				result = "Mär";
+				break;
+			case 4:
+				result = "Apr";
+				break;
+			case 5:
+				result = "Mai";
+				break;
+			case 6:
+				result = "Jun";
+				break;
+			case 7:
+				result = "Jul";
+				break;
+			case 8:
+				result = "Aug";
+				break;
+			case 9:
+				result = "Sep";
+				break;
+			case 10:
+				result = "Okt";
+				break;
+			case 11:
+				result = "Nov";
+				break;
+			case 12:
+				result = "Dez";
+				break;
+				default: result = null;
+		}
+        return result;
 	}
 
 	public int getId() {

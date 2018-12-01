@@ -2,6 +2,7 @@ package project.wip.androidclient;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Pair;
 import android.view.View;
@@ -28,7 +29,7 @@ import java.util.List;
 public class ServerConnection {
 
     private String errorMessage;
-    public Account account = new Account();
+    private static Account account;
 
     @SuppressLint("StaticFieldLeak")
     public void getAccount(String accountNumber, final Context context){
@@ -65,6 +66,11 @@ public class ServerConnection {
                     String json = stringIntegerPair.first;
                     Gson gson = new GsonBuilder().create();
                     account = gson.fromJson(json, Account.class);
+                    System.out.print("Hallo I Bims und ich funze");
+
+                    Intent intent = new Intent(context, MainActivity.class);
+                    //intent.putExtra("accountNumber", editTextAccountNumber.getText().toString());
+                    context.startActivity(intent);
                 }
                 else{
                     String msg = " (Fehler " + (stringIntegerPair != null ?
@@ -72,7 +78,12 @@ public class ServerConnection {
                     Toast.makeText(context, errorMessage + msg, Toast.LENGTH_SHORT).show();
                 }
             }
+
         }.execute("http://10.0.2.2:9998/rest/account/" + accountNumber); // In Konstante speichern
+    }
+
+    public static Account getCurrentAccount(){
+        return account;
     }
 
     @SuppressLint("StaticFieldLeak")

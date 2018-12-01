@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Pair;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -45,9 +44,16 @@ public class LogInActivity extends Activity {
                         InputMethodManager.HIDE_IMPLICIT_ONLY);
         setContentView(R.layout.activity_log_in);
 
-        editTextAccountNumber = findViewById(R.id.editTextBalanceID);
+        editTextAccountNumber = findViewById(R.id.editTextNumber);
 
         addListenerOnButton();
+        //serverConnection.getAccount("1000",LogInActivity.this);
+    }
+
+    public void startIntentFromLogIn(){
+        Intent intent = new Intent(LogInActivity.this, MainActivity.class);
+        //intent.putExtra("accountNumber", editTextAccountNumber.getText().toString());
+        startActivity(intent);
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -117,9 +123,6 @@ public class LogInActivity extends Activity {
             @Override
             public void onClick(View v) {
                 serverConnection.getAccount(editTextAccountNumber.getText().toString(),LogInActivity.this);
-                Intent intent = new Intent(LogInActivity.this, MainActivity.class);
-                intent.putExtra("accountNumber", editTextAccountNumber.getText().toString());
-                startActivity(intent);
             }
         });
     }
