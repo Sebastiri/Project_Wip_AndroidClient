@@ -1,10 +1,15 @@
 package project.wip.androidclient;
 
+import android.app.Activity;
+import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -19,6 +24,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         public TextView textViewName;
         public TextView textViewReference;
         public TextView textViewAmount;
+        private CardView cardView;
 
         public TransactionViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -27,6 +33,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
             textViewName = itemView.findViewById(R.id.textViewName);
             textViewReference = itemView.findViewById(R.id.textViewReference);
             textViewAmount = itemView.findViewById(R.id.textViewAmount);
+            cardView = itemView.findViewById(R.id.cardView);
         }
     }
 
@@ -38,8 +45,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     @Override
     public TransactionViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_transaction, viewGroup, false);
-        TransactionViewHolder transactionViewHolder = new TransactionViewHolder(v);
-        return transactionViewHolder;
+        return new TransactionViewHolder(v);
     }
 
     @Override
@@ -48,8 +54,17 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         transactionViewHolder.textViewDay.setText(currentItem.getDay());
         transactionViewHolder.textViewMonth.setText(currentItem.getMonth());
         transactionViewHolder.textViewName.setText(currentItem.getName());
+        transactionViewHolder.textViewName.setSelected(true);
         transactionViewHolder.textViewReference.setText(currentItem.getReference());
+        transactionViewHolder.textViewReference.setSelected(true);
         transactionViewHolder.textViewAmount.setText(currentItem.getAmount());
+        transactionViewHolder.textViewAmount.setSelected(true);
+
+        if(currentItem.getAmount().contains("-")){
+            transactionViewHolder.cardView.setCardBackgroundColor(Color.parseColor("#ffefef"));
+        } else {
+            transactionViewHolder.cardView.setCardBackgroundColor(Color.parseColor("#effff0"));
+        }
     }
 
     @Override

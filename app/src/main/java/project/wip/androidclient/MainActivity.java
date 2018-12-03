@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +21,7 @@ public class MainActivity extends Activity {
 
     TextView textViewName;
     Account account;
+    Context context;
     ServerConnection serverConnection = new ServerConnection();
 
     @Override
@@ -27,6 +29,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         textViewName = findViewById(R.id.textViewName);
+        context = MainActivity.this;
 
         account = ServerConnection.getCurrentAccount();
         loadDynamicContent(account);
@@ -76,11 +79,6 @@ public class MainActivity extends Activity {
         recyclerView.setAdapter(adapter);
     }
 
-    public void refresh(Context context){
-        Toast.makeText(context,"Account wird geladen",Toast.LENGTH_SHORT).show();
-        serverConnection.getAccount(ServerConnection.getCurrentAccount().getNumber(),MainActivity.this,ServerConnection.mIpAddress);
-    }
-
     public void addListenerOnButton(){
 
         Button buttonTransactActivity = findViewById(R.id.buttonTransactionActivity);
@@ -97,8 +95,12 @@ public class MainActivity extends Activity {
         buttonRefresh.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this,"Account wird geladen",Toast.LENGTH_SHORT).show();
-                serverConnection.getAccount(ServerConnection.getCurrentAccount().getNumber(),MainActivity.this,ServerConnection.mIpAddress);
+                try {
+                    Toast.makeText(MainActivity.this,"Account wird geladen",Toast.LENGTH_SHORT).show();
+                    serverConnection.getAccount(ServerConnection.getCurrentAccount().getNumber(),MainActivity.this,ServerConnection.mIpAddress);
+                } catch (Exception e){
+                    Toast.makeText(MainActivity.this,"Server nicht verfügbar",Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

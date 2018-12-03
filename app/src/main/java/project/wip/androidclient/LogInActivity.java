@@ -12,6 +12,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
+
 public class LogInActivity extends Activity {
 
     EditText editTextAccountNumber;
@@ -61,8 +63,12 @@ public class LogInActivity extends Activity {
                 if(editTextAccountNumber.getText().toString().length() == 0){
                     Toast.makeText(LogInActivity.this,"Bitte Kontonummer eingeben",Toast.LENGTH_SHORT).show();
                 } else {
-                    serverConnection.getAccount(editTextAccountNumber.getText().toString(),
-                            LogInActivity.this,editTextIP.getText().toString());
+                    try {
+                        serverConnection.getAccount(editTextAccountNumber.getText().toString(),
+                                LogInActivity.this,editTextIP.getText().toString());
+                    } catch (Exception e){
+                        Toast.makeText(LogInActivity.this,"Server nicht verfügbar",Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });

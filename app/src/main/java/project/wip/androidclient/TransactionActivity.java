@@ -21,8 +21,6 @@ public class TransactionActivity extends Activity {
         addListenerOnButton();
     }
 
-
-
     public void addListenerOnButton(){
 
         EditText eTReceiver = findViewById(R.id.editTextReceiverNumber);
@@ -33,12 +31,14 @@ public class TransactionActivity extends Activity {
         buttonTransact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                String accountNumber = ServerConnection.getCurrentAccount().getNumber();
-                serverConnection.postTransaction(TransactionActivity.this,accountNumber,
-                        eTReceiver.getText().toString(),eTAmount.getText().toString(),eTReference.getText().toString());
-
-                serverConnection.getAccount(accountNumber,TransactionActivity.this,ServerConnection.mIpAddress);
+                try {
+                    String accountNumber = ServerConnection.getCurrentAccount().getNumber();
+                    serverConnection.postTransaction(TransactionActivity.this,accountNumber,
+                            eTReceiver.getText().toString(),eTAmount.getText().toString(),eTReference.getText().toString());
+                    serverConnection.getAccount(accountNumber,TransactionActivity.this,ServerConnection.mIpAddress);
+                } catch (Exception e){
+                    Toast.makeText(TransactionActivity.this,"Server nicht verfügbar",Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
