@@ -1,13 +1,16 @@
 package project.wip.androidclient;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -16,6 +19,8 @@ import java.util.List;
 public class MainActivity extends Activity {
 
     TextView textViewName;
+    Account account;
+    ServerConnection serverConnection = new ServerConnection();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +28,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         textViewName = findViewById(R.id.textViewName);
 
-        Account account = ServerConnection.getCurrentAccount();
+        account = ServerConnection.getCurrentAccount();
         loadDynamicContent(account);
 
         addListenerOnButton();
@@ -71,6 +76,11 @@ public class MainActivity extends Activity {
         recyclerView.setAdapter(adapter);
     }
 
+    public void refresh(Context context){
+        Toast.makeText(context,"Account wird geladen",Toast.LENGTH_SHORT).show();
+        serverConnection.getAccount(ServerConnection.getCurrentAccount().getNumber(),MainActivity.this,ServerConnection.mIpAddress);
+    }
+
     public void addListenerOnButton(){
 
         Button buttonTransactActivity = findViewById(R.id.buttonTransactionActivity);
@@ -80,6 +90,15 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 Intent intentTransaction = new Intent(MainActivity.this, TransactionActivity.class);
                 startActivity(intentTransaction);
+            }
+        });
+
+        ImageButton buttonRefresh = findViewById(R.id.imageButtonRefresh);
+        buttonRefresh.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this,"Account wird geladen",Toast.LENGTH_SHORT).show();
+                serverConnection.getAccount(ServerConnection.getCurrentAccount().getNumber(),MainActivity.this,ServerConnection.mIpAddress);
             }
         });
     }

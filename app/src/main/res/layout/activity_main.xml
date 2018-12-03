@@ -6,17 +6,33 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <ImageButton
+        android:id="@+id/imageButtonRefresh"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="31dp"
+        android:layout_marginEnd="20dp"
+        android:background="@null"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/refresh"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="Refresh" />
+
     <TextView
         android:id="@+id/textViewName"
-        android:layout_width="wrap_content"
+        android:layout_width="333dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="78dp"
         android:fontFamily="sans-serif"
-        android:text="Guten Tag, Jotham Weber!"
-        android:textAlignment="center"
+        android:textAlignment="textStart"
         android:textColor="@android:color/black"
         android:textSize="24sp"
         android:textStyle="italic" />
@@ -27,9 +43,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textViewName"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="75dp"
-        android:layout_marginTop="20dp"
-        android:text="850,14 €"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="25dp"
         android:textSize="18sp"
         android:textStyle="bold" />
 
@@ -39,8 +54,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textViewName"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="75dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="40dp"
         android:text="ÜBERWEISEN" />
 
     <TextView
@@ -50,7 +65,7 @@
         android:layout_below="@+id/textViewBalance"
         android:layout_alignParentStart="true"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="30dp"
         android:text="Ihre Transaktionen:"
         android:textSize="18sp"
         android:textStyle="bold" />

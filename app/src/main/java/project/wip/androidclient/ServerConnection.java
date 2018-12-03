@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Pair;
-import android.view.View;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -29,10 +28,12 @@ import java.util.List;
 public class ServerConnection {
 
     private String errorMessage;
+    public static String mIpAddress;
     private static Account account;
 
     @SuppressLint("StaticFieldLeak")
-    public void getAccount(String accountNumber, final Context context){
+    public void getAccount(String accountNumber, final Context context, String ipAdress){
+        mIpAddress = ipAdress;
 
         new AsyncTask<String, Void, Pair<String, Integer>>() {
 
@@ -66,7 +67,6 @@ public class ServerConnection {
                     String json = stringIntegerPair.first;
                     Gson gson = new GsonBuilder().create();
                     account = gson.fromJson(json, Account.class);
-                    System.out.print("Hallo I Bims und ich funze");
 
                     Intent intent = new Intent(context, MainActivity.class);
                     //intent.putExtra("accountNumber", editTextAccountNumber.getText().toString());
@@ -79,7 +79,7 @@ public class ServerConnection {
                 }
             }
 
-        }.execute("http://10.0.2.2:9998/rest/account/" + accountNumber); // In Konstante speichern
+        }.execute(String.format("http://%s/rest/account/%s",mIpAddress,accountNumber)); // In Konstante speichern
     }
 
     public static Account getCurrentAccount(){
@@ -87,8 +87,7 @@ public class ServerConnection {
     }
 
     @SuppressLint("StaticFieldLeak")
-    public void postTransaction(View view, final Context context){
-        final String value; // = editInput.getText().toString();
+    public void postTransaction(final Context context, String senderNumber, String receiverNumber, String amount, String reference){
 
         AsyncTask<String, Void, HttpResponse> info = new AsyncTask<String, Void, HttpResponse>() {
             @Override
@@ -96,10 +95,10 @@ public class ServerConnection {
                 HttpClient client = new DefaultHttpClient();
                 HttpPost post = new HttpPost(strings[0]);
                 List<NameValuePair> parameterList = new ArrayList<>();
-                parameterList.add(new BasicNameValuePair("senderNumber", "1000"));
-                parameterList.add(new BasicNameValuePair("receiverNumber", "1001"));
-                parameterList.add(new BasicNameValuePair("amount", "1.00"));
-                parameterList.add(new BasicNameValuePair("reference", "Bitteschoen"));
+                parameterList.add(new BasicNameValuePair("senderNumber", senderNumber));
+                parameterList.add(new BasicNameValuePair("receiverNumber", receiverNumber));
+                parameterList.add(new BasicNameValuePair("amount", amount));
+                parameterList.add(new BasicNameValuePair("reference", reference));
                 try {
 
                     UrlEncodedFormEntity form = new UrlEncodedFormEntity(parameterList,"UTF-8");
@@ -122,16 +121,10 @@ public class ServerConnection {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    // Bedingung ? true : false
-                    String errorMsg = " (Fehler " + httpResponse.getStatusLine().getStatusCode() + ")";
-                    Toast.makeText(context, entityMsg + errorMsg, Toast.LENGTH_SHORT).show();
+                    String errorMsg = String.format(" (Fehler %s ",httpResponse.getStatusLine().getStatusCode());
+                    Toast.makeText(context, String.format("%s%s",entityMsg,errorMsg), Toast.LENGTH_SHORT).show();
                 }
-
-                //else hier noch rein
-                /*String msg = " (Fehler " + (stringIntegerPair != null ?
-                        stringIntegerPair.second : "null") + ")";
-                Toast.makeText(LogInActivity.this, errorMessage + msg, Toast.LENGTH_SHORT).show();*/
             }
-        }.execute("http://10.0.2.2:9998/rest/transaction");// In Konstante speichern
+        }.execute(String.format("http://%s/rest/transaction",mIpAddress));
     }
 }

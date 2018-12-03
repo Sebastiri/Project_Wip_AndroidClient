@@ -2,11 +2,16 @@
 <!-- Base application theme. -->
 <!-- Base application theme. -->
 
-<style name="AppTheme" parent="@android:style/Theme.Holo.Light">
-    <item name="android:actionBarStyle">@style/MyActionBar</item>
-</style>
+    <style name="AppTheme" parent="@android:style/Theme.Holo.Light">
+        <item name="android:actionBarStyle">@style/NoActionBar</item>
+    </style>
 
-<style name="MyActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
-    <item name="android:background">#FFFFFF</item>
-</style>
+    <style name="MyActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:background">#FFFFFF</item>
+    </style>
+
+    <style name="NoActionBar" parent="@android:style/Theme.Holo.Light">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
 </resources>
