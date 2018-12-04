@@ -30,6 +30,7 @@ public class ServerConnection {
     private String errorMessage;
     public static String mIpAddress;
     private static Account account;
+    public static String balance;
 
     @SuppressLint("StaticFieldLeak")
     public void getAccount(String accountNumber, final Context context, String ipAdress){
@@ -127,4 +128,13 @@ public class ServerConnection {
             }
         }.execute(String.format("http://%s/rest/transaction",mIpAddress));
     }
+/*
+    public static String getBalance() {
+        return balance;
+    }
+
+    public static void setBalance(String balance) {
+        ServerConnection.balance = balance;
+    }
+    */
 }

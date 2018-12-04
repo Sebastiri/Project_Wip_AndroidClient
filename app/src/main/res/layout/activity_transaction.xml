@@ -7,108 +7,120 @@
     tools:context=".TransactionActivity">
 
     <TextView
-        android:id="@+id/textViewBalanceDescription"
-        android:layout_width="165dp"
+        android:id="@+id/textViewHeadline"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="36dp"
-        android:text="Kontostand:"
+        android:background="#2b579A"
+        android:text="Transaktion durchführen"
         android:textAlignment="center"
-        android:textSize="18sp"
+        android:textColor="@android:color/white"
+        android:textSize="28sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textViewBalance"
-        android:layout_width="180dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="36dp"
-        android:text="850,14 €"
-        android:textAlignment="center"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/textViewBalanceDescription"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textViewReceiverNumber"
-        android:layout_width="165dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
-        android:text="Kontonummer:"
+        android:layout_marginEnd="8dp"
+        android:text="Kontostand:  €"
         android:textAlignment="center"
         android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewBalanceDescription" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewHeadline" />
+
+    <TextView
+        android:id="@+id/textViewReceiverNumber"
+        android:layout_width="251dp"
+        android:layout_height="wrap_content"
+        android:text="Kontonummer Empfänger"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextReceiverNumber" />
 
     <EditText
         android:id="@+id/editTextReceiverNumber"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
         android:ems="10"
+        android:hint="z.B. 1000"
         android:inputType="number"
-        app:layout_constraintStart_toEndOf="@+id/textViewReceiverNumber"
+        android:singleLine="true"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewBalance" />
 
     <TextView
         android:id="@+id/textViewAmount"
         android:layout_width="165dp"
-        android:layout_height="22dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
-        android:text="Betrag in EUR:"
+        android:layout_height="wrap_content"
+        android:text="Betrag in EUR"
         android:textAlignment="center"
         android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewReceiverNumber" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextAmount" />
 
     <EditText
         android:id="@+id/editTextAmount"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:ems="10"
-        android:inputType="number"
+        android:layout_marginTop="24dp"
         android:digits="0123456789,"
-        app:layout_constraintStart_toEndOf="@+id/textViewAmount"
-        app:layout_constraintTop_toBottomOf="@+id/editTextReceiverNumber" />
+        android:ems="10"
+        android:hint="z.B. 20,00"
+        android:inputType="number"
+        android:singleLine="true"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewReceiverNumber" />
 
     <TextView
         android:id="@+id/textViewReference"
         android:layout_width="165dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
-        android:text="Verwendungszweck:"
+        android:text="Verwendungszweck"
         android:textAlignment="center"
         android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewAmount" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextReference" />
 
     <EditText
         android:id="@+id/editTextReference"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:ems="10"
+        android:hint="z.B. Einkauf"
         android:inputType="textPersonName"
-        app:layout_constraintStart_toEndOf="@+id/textViewReference"
-        app:layout_constraintTop_toBottomOf="@+id/editTextAmount" />
+        android:singleLine="true"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewAmount" />
 
     <Button
         android:id="@+id/buttonTransaction"
         android:layout_width="196dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginTop="32dp"
         android:text="ÜBERWEISEN"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="#2b579A"
+        android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewReference" />
 
 </android.support.constraint.ConstraintLayout>

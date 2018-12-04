@@ -62,9 +62,9 @@ public class MainActivity extends Activity {
         }
 
         //Setze Kontostand
-        String balanceResult = balance.toString().replace(".", ",");
+        ServerConnection.balance = balance.toString().replace(".", ",");
         TextView tvBalance = findViewById(R.id.textViewBalance);
-        tvBalance.setText(String.format("%s €",balanceResult));
+        tvBalance.setText(String.format("%s €",ServerConnection.balance));
 
         //Setze Transaktionen
         addRecyclerView(transactionItems);
