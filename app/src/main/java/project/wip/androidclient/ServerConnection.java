@@ -31,6 +31,7 @@ public class ServerConnection {
     public static String mIpAddress;
     private static Account account;
     public static String balance;
+    private Boolean transactionSuccessful = true;
 
     @SuppressLint("StaticFieldLeak")
     public void getAccount(String accountNumber, final Context context, String ipAdress){
@@ -68,15 +69,15 @@ public class ServerConnection {
                     String json = stringIntegerPair.first;
                     Gson gson = new GsonBuilder().create();
                     account = gson.fromJson(json, Account.class);
-
-                    Intent intent = new Intent(context, MainActivity.class);
-                    //intent.putExtra("accountNumber", editTextAccountNumber.getText().toString());
-                    context.startActivity(intent);
                 }
                 else{
                     String msg = " (Fehler " + (stringIntegerPair != null ?
                             stringIntegerPair.second : "null") + ")";
                     Toast.makeText(context, errorMessage + msg, Toast.LENGTH_SHORT).show();
+                }
+                if(transactionSuccessful){
+                    Intent intent = new Intent(context, MainActivity.class);
+                    context.startActivity(intent);
                 }
             }
 
@@ -124,17 +125,11 @@ public class ServerConnection {
                     }
                     String errorMsg = String.format(" (Fehler %s ",httpResponse.getStatusLine().getStatusCode());
                     Toast.makeText(context, String.format("%s%s",entityMsg,errorMsg), Toast.LENGTH_SHORT).show();
+                    transactionSuccessful = false;
+                } else {
+                    transactionSuccessful = true;
                 }
             }
         }.execute(String.format("http://%s/rest/transaction",mIpAddress));
     }
-/*
-    public static String getBalance() {
-        return balance;
-    }
-
-    public static void setBalance(String balance) {
-        ServerConnection.balance = balance;
-    }
-    */
 }

@@ -4,8 +4,10 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 
 public class Transaction //implements Parcelable
@@ -29,50 +31,8 @@ public class Transaction //implements Parcelable
     }
 
     public String getMonthFromDate(){
-	    Calendar cal = Calendar.getInstance();
-	    cal.setTime(transactionDate);
-	    int month = cal.get(Calendar.MONTH);
-	    String result;
-		switch(month) {
-			case 1:
-				result = "Jan";
-				break;
-			case 2:
-				result = "Feb";
-				break;
-			case 3:
-				result = "Mär";
-				break;
-			case 4:
-				result = "Apr";
-				break;
-			case 5:
-				result = "Mai";
-				break;
-			case 6:
-				result = "Jun";
-				break;
-			case 7:
-				result = "Jul";
-				break;
-			case 8:
-				result = "Aug";
-				break;
-			case 9:
-				result = "Sep";
-				break;
-			case 10:
-				result = "Okt";
-				break;
-			case 11:
-				result = "Nov";
-				break;
-			case 12:
-				result = "Dez";
-				break;
-				default: result = null;
-		}
-        return result;
+		SimpleDateFormat formatter = new SimpleDateFormat("MMM",Locale.GERMAN);
+		return formatter.format(transactionDate).substring(0,3);
 	}
 
 	public int getId() {
