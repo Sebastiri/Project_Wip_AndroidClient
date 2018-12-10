@@ -15,7 +15,12 @@ public class TransactionActivity extends Activity {
     ServerConnection serverConnection = new ServerConnection();
     TextView textViewBalance;
 
-
+    /**
+     * Called when the activity is starting. The activity TransactionActivity gets initialised in this method.
+     * @param savedInstanceState If the activity is being re-initialized after previously being shut
+     *                           down then this Bundle contains the data it most recently supplied in
+     *                           onSaveInstanceState(Bundle). Note: Otherwise it is null.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

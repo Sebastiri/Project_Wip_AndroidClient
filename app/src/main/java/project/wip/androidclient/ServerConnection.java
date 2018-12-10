@@ -19,12 +19,19 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class contains all information to connect to the server.
+ * @author Sebastian Rieck
+ */
 public class ServerConnection {
 
     private String errorMessage;
@@ -32,16 +39,34 @@ public class ServerConnection {
     private static Account account;
     public static String balance;
     private Boolean transactionSuccessful = true;
+    private Boolean logInSuccessful = true;
 
+    /**
+     * The method getAccount() connects to the server to get an object of type Account.
+     * @param accountNumber should be four unique characters that identify the account to get
+     * @param context Interface to global information about the application environment
+     * @param ipAddress The IP where the server can be found
+     * @author Sebastian Rieck
+     */
     @SuppressLint("StaticFieldLeak")
-    public void getAccount(String accountNumber, final Context context, String ipAdress){
-        mIpAddress = ipAdress;
+    public void getAccount(String accountNumber, final Context context, String ipAddress){
+        mIpAddress = ipAddress;
 
         new AsyncTask<String, Void, Pair<String, Integer>>() {
 
+            /**
+             * An async task that commits an HttpGet.
+             * @param strings
+             * @return a pair of json information for the Account object and a status code of the
+             * committed HttpGet.
+             * @author Sebastian Rieck
+             */
             @Override
             protected Pair<String, Integer> doInBackground(String... strings) {
-                HttpClient client = new DefaultHttpClient();
+                final HttpParams httpParams = new BasicHttpParams();
+                HttpConnectionParams.setConnectionTimeout(httpParams, 2000);
+                DefaultHttpClient client = new DefaultHttpClient(httpParams);
+                //HttpClient client = new DefaultHttpClient();
                 HttpGet get = new HttpGet(strings[0]);
 
                 try {
@@ -52,17 +77,24 @@ public class ServerConnection {
 
                     if(statusCode == HttpStatus.SC_OK){
                         json = EntityUtils.toString(response.getEntity(),"UTF-8");
+                        logInSuccessful = true;
                     } else {
                         errorMessage = EntityUtils.toString(response.getEntity());
+                        logInSuccessful = false;
                     }
 
                     return Pair.create(json, statusCode);
                 } catch (IOException e) {
+                    logInSuccessful = false;
                     e.printStackTrace();
                 }
                 return null;
             }
 
+            /**
+             *
+             * @param stringIntegerPair
+             */
             @Override
             protected void onPostExecute(Pair<String, Integer> stringIntegerPair) {
                 if(stringIntegerPair != null && stringIntegerPair.first != null){
@@ -71,17 +103,21 @@ public class ServerConnection {
                     account = gson.fromJson(json, Account.class);
                 }
                 else{
-                    String msg = " (Fehler " + (stringIntegerPair != null ?
-                            stringIntegerPair.second : "null") + ")";
-                    Toast.makeText(context, errorMessage + msg, Toast.LENGTH_SHORT).show();
+                    if(stringIntegerPair == null){
+                        Toast.makeText(context,"Server nicht verfügbar",Toast.LENGTH_SHORT).show();
+                    } else {
+                        String msg = " (Fehler " + (stringIntegerPair != null ?
+                                stringIntegerPair.second : "null") + ")";
+                        Toast.makeText(context,errorMessage + msg,Toast.LENGTH_SHORT).show();
+                    }
                 }
-                if(transactionSuccessful){
-                    Intent intent = new Intent(context, MainActivity.class);
+                if(transactionSuccessful && logInSuccessful){
+                    Intent intent = new Intent(context,MainActivity.class);
                     context.startActivity(intent);
                 }
             }
 
-        }.execute(String.format("http://%s/rest/account/%s",mIpAddress,accountNumber)); // In Konstante speichern
+        }.execute(String.format("http://%s/rest/account/%s",mIpAddress,accountNumber));
     }
 
     public static Account getCurrentAccount(){
@@ -89,12 +125,18 @@ public class ServerConnection {
     }
 
     @SuppressLint("StaticFieldLeak")
-    public void postTransaction(final Context context, String senderNumber, String receiverNumber, String amount, String reference){
+    public void postTransaction(final Context context,String senderNumber,String receiverNumber,
+                                String amount,String reference){
 
         AsyncTask<String, Void, HttpResponse> info = new AsyncTask<String, Void, HttpResponse>() {
             @Override
             protected HttpResponse doInBackground(String... strings) {
-                HttpClient client = new DefaultHttpClient();
+                final HttpParams httpParams = new BasicHttpParams();
+                HttpConnectionParams.setConnectionTimeout(httpParams, 2000);
+                DefaultHttpClient client = new DefaultHttpClient(httpParams);
+
+                //HttpClient client = new DefaultHttpClient();
+
                 HttpPost post = new HttpPost(strings[0]);
                 List<NameValuePair> parameterList = new ArrayList<>();
                 parameterList.add(new BasicNameValuePair("senderNumber", senderNumber));
@@ -123,8 +165,10 @@ public class ServerConnection {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    String errorMsg = String.format(" (Fehler %s ",httpResponse.getStatusLine().getStatusCode());
-                    Toast.makeText(context, String.format("%s%s",entityMsg,errorMsg), Toast.LENGTH_SHORT).show();
+                    String errorMsg = String.format(" (Fehler %s ",httpResponse.getStatusLine()
+                            .getStatusCode());
+                    Toast.makeText(context, String.format("%s%s",entityMsg,errorMsg),
+                            Toast.LENGTH_SHORT).show();
                     transactionSuccessful = false;
                 } else {
                     transactionSuccessful = true;

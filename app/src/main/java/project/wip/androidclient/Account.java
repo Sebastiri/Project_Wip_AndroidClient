@@ -1,26 +1,19 @@
 package project.wip.androidclient;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import java.util.List;
 
-
+/**
+ * Account is the class which contains all information for creating an account object
+ * according to the output of the banking server. The class helps to create objects out of the gson-
+ * data given from the API.
+ * @author Sebastian Rieck
+ */
 public class Account {
 
-	private int id;
+    private int id;
 	private String owner;
 	private String number;
 	private List<Transaction> transactions;
-
-	public Account(int id, String owner, String number, List<Transaction> transactions) {
-		this.id = id;
-		this.owner = owner;
-		this.number = number;
-		this.transactions = transactions;
-	}
-
-	public Account(){ }
 
 	public int getId() {
 		return id;
@@ -34,10 +27,6 @@ public class Account {
 		return owner;
 	}
 
-	public void setOwner(String owner) {
-		this.owner = owner;
-	}
-
 	public String getNumber() {
 		return number;
 	}
@@ -48,9 +37,5 @@ public class Account {
 
 	public List<Transaction> getTransactions() {
 		return transactions;
-	}
-
-	public void setTransactions(List<Transaction> transactions) {
-		this.transactions = transactions;
 	}
 }
