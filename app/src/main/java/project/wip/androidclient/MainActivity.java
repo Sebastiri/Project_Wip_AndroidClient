@@ -132,6 +132,15 @@ public class MainActivity extends Activity {
                 }
             }
         });
+
+        ImageButton buttonLogOut = findViewById(R.id.imageButtonLogOut);
+        buttonLogOut.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intentLogOut = new Intent(MainActivity.this,LogInActivity.class);
+                startActivity(intentLogOut);
+            }
+        });
     }
 
     @Override
