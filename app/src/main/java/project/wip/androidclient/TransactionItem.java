@@ -1,5 +1,9 @@
 package project.wip.androidclient;
 
+/**
+ * This class implements recycler view items which show all details of transactions.
+ * @author Sebastian Rieck
+ */
 public class TransactionItem {
     private String day;
     private  String month;

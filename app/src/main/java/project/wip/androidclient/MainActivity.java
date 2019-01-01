@@ -96,7 +96,7 @@ public class MainActivity extends Activity {
 
     /**
      * This method initializes the RecyclerView. This is a element comparable to a table.
-     * @param transactionItems
+     * @param transactionItems Array of transactions
      * @author Sebastian Rieck
      */
     public void addRecyclerView(ArrayList<TransactionItem> transactionItems){
@@ -108,11 +108,23 @@ public class MainActivity extends Activity {
         recyclerView.setAdapter(adapter);
     }
 
+    /**
+     * The method creates a listener for the buttons. The class variables get initialized with the
+     * related xml element.
+     * @author Sebastian Rieck
+     */
     public void addListenerOnButton(){
 
         Button buttonTransactActivity = findViewById(R.id.buttonTransactionActivity);
 
         buttonTransactActivity.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Starts the activity_transaction. The method creates an instance of View.OnClickListener and wires the listener to the
+             * button using setOnClickListener(View.OnClickListener). As a result, the buttonTransactionActivity
+             * is activated and can be used.
+             * @param v the view of the activity
+             * @author Sebastian Rieck
+             */
             @Override
             public void onClick(View v) {
                 Intent intentTransaction = new Intent(MainActivity.this, TransactionActivity.class);
@@ -122,6 +134,13 @@ public class MainActivity extends Activity {
 
         ImageButton buttonRefresh = findViewById(R.id.imageButtonRefresh);
         buttonRefresh.setOnClickListener(new View.OnClickListener(){
+            /**
+             * Refreshes the current activity. The method creates an instance of View.OnClickListener and wires the listener to the
+             * button using setOnClickListener(View.OnClickListener). As a result, the imageButtonRefresh
+             * is activated and can be used.
+             * @param v the view of the activity
+             * @author Sebastian Rieck
+             */
             @Override
             public void onClick(View v) {
                 try {
@@ -135,6 +154,13 @@ public class MainActivity extends Activity {
 
         ImageButton buttonLogOut = findViewById(R.id.imageButtonLogOut);
         buttonLogOut.setOnClickListener(new View.OnClickListener(){
+            /**
+             * Returns to the activity_log_in. The method creates an instance of View.OnClickListener and wires the listener to the
+             * button using setOnClickListener(View.OnClickListener). As a result, the imageButtonLogOut
+             * is activated and can be used.
+             * @param v the view of the activity
+             * @author Sebastian Rieck
+             */
             @Override
             public void onClick(View v) {
                 Intent intentLogOut = new Intent(MainActivity.this,LogInActivity.class);
@@ -143,6 +169,11 @@ public class MainActivity extends Activity {
         });
     }
 
+    /**
+     * The empty method overrides the normal funtion of the onBackPresses method. So nothing happens
+     * when the back button gets pressed in the activity_main.
+     * @author Sebastian Rieck
+     */
     @Override
     public void onBackPressed() {}
 }

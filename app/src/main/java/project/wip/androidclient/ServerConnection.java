@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class contains all information to connect to the server.
+ * This class connects to the server.
  * @author Sebastian Rieck
  */
 public class ServerConnection {
@@ -55,7 +55,7 @@ public class ServerConnection {
 
             /**
              * An async task that commits an HttpGet.
-             * @param strings
+             * @param strings arbitrary number of arguments to pass for the async task
              * @return a pair of json information for the Account object and a status code of the
              * committed HttpGet.
              * @author Sebastian Rieck
@@ -91,8 +91,9 @@ public class ServerConnection {
             }
 
             /**
-             *
-             * @param stringIntegerPair
+             * Gets called in the end of the async background calculation
+             * @param stringIntegerPair the result of the async task
+             * @author Sebastian Rieck
              */
             @Override
             protected void onPostExecute(Pair<String, Integer> stringIntegerPair) {
@@ -123,11 +124,26 @@ public class ServerConnection {
         return account;
     }
 
+    /**
+     * A transaction gets posted.
+     * @param context Interface to global information about the application environment
+     * @param senderNumber the bank account of the sender
+     * @param receiverNumber the bank account of the receiver
+     * @param amount the amount of money
+     * @param reference a text linked to the transaction
+     * @author Sebastian Rieck
+     */
     @SuppressLint("StaticFieldLeak")
     public void postTransaction(final Context context,String senderNumber,String receiverNumber,
                                 String amount,String reference){
 
         AsyncTask<String, Void, HttpResponse> info = new AsyncTask<String, Void, HttpResponse>() {
+            /**
+             * An async task that executes an http post.
+             * @param strings arbitrary number of arguments to pass for the async task
+             * @return the result of the request
+             * @author Sebastian Rieck
+             */
             @Override
             protected HttpResponse doInBackground(String... strings) {
                 final HttpParams httpParams = new BasicHttpParams();
@@ -154,6 +170,11 @@ public class ServerConnection {
                 return null;
             }
 
+            /**
+             * Gets called in the end of the async background calculation
+             * @param httpResponse the result of the async task
+             * @author Sebastian Rieck
+             */
             @Override
             protected void onPostExecute(HttpResponse httpResponse) {
                 int statusCode = httpResponse.getStatusLine().getStatusCode();

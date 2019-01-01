@@ -1,8 +1,6 @@
 package project.wip.androidclient;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,6 +8,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * This class is necessary for the activity_transaction.xml. It builds the content and starts the
+ * activity.
+ * @author Sebastian Rieck
+ */
 public class TransactionActivity extends Activity {
 
     ServerConnection serverConnection = new ServerConnection();
@@ -20,6 +23,7 @@ public class TransactionActivity extends Activity {
      * @param savedInstanceState If the activity is being re-initialized after previously being shut
      *                           down then this Bundle contains the data it most recently supplied in
      *                           onSaveInstanceState(Bundle). Note: Otherwise it is null.
+     * @author Sebastian Rieck
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +34,11 @@ public class TransactionActivity extends Activity {
         addListenerOnButton();
     }
 
+    /**
+     * The method creates a listener for the buttons. The class variables get initialized with the
+     * related xml element.
+     * @author Sebastian Rieck
+     */
     public void addListenerOnButton(){
 
         EditText eTReceiver = findViewById(R.id.editTextReceiverNumber);
@@ -38,6 +47,12 @@ public class TransactionActivity extends Activity {
         Button buttonTransact = findViewById(R.id.buttonTransaction);
 
         buttonTransact.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Defines, what happens when the buttonTransaction gets clicked. Calls the method
+             * ServerConnection.postTransaction() with all information from the editTexts.
+             * @param v the view of the activity
+             * @author Sebastian Rieck
+             */
             @Override
             public void onClick(View v) {
                 try {

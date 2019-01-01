@@ -1,17 +1,16 @@
 package project.wip.androidclient;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-
-public class Transaction //implements Parcelable
-         {
+/**
+ * The class Transaction contains the information received by the server for one transaction.
+ * @author Sebastian Rieck
+ */
+public class Transaction {
 	private int id;
 	private Account sender;
 	private Account receiver;
@@ -19,6 +18,11 @@ public class Transaction //implements Parcelable
 	private String reference;
 	private Date transactionDate;
 
+    /**
+     * Getter method for the day of month from the transaction.
+     * @return the day of month
+     * @author Sebastian Rieck
+     */
 	public String getDayFromDate(){
         Calendar cal = Calendar.getInstance();
         cal.setTime(transactionDate);
@@ -30,6 +34,10 @@ public class Transaction //implements Parcelable
         return result;
     }
 
+    /**
+     * Getter method for the name of month as three initials.
+     * @return the month in a pattern of three initials.
+     */
     public String getMonthFromDate(){
 		SimpleDateFormat formatter = new SimpleDateFormat("MMM",Locale.GERMAN);
 		return formatter.format(transactionDate).substring(0,3);
@@ -47,40 +55,20 @@ public class Transaction //implements Parcelable
 		return sender;
 	}
 
-	public void setSender(Account sender) {
-		this.sender = sender;
-	}
-
-	public Account getReceiver() {
+    public Account getReceiver() {
 		return receiver;
 	}
 
-	public void setReceiver(Account receiver) {
-		this.receiver = receiver;
-	}
-
-	public BigDecimal getAmount() {
+    public BigDecimal getAmount() {
 		return amount;
 	}
 
-	public void setAmount(BigDecimal amount) {
-		this.amount = amount;
-	}
-
-	public String getReference() {
+    public String getReference() {
 		return reference;
 	}
 
 	public void setReference(String reference) {
 		this.reference = reference;
-	}
-
-	public Date getTransactionDate() {
-		return transactionDate;
-	}
-
-	public void setTransactionDate(Date transactionDate) {
-		this.transactionDate = transactionDate;
 	}
 
 }
