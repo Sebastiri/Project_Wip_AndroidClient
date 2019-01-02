@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class contains all actions and algorithms used for the activity_log_in.xml.
+ * This class contains all actions and algorithms used for the activity_main.xml.
  * There are two buttons used on this activity, so the activities of the clicks get described here.
  * There is also a RecyclerView that gets initialized here.
  * This is the main view for the user. It contains the transactions, balance, owner name and the
